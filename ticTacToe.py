@@ -54,18 +54,22 @@ def win_check(player):
 
 
 def player_turn(player):
-    player_input = input(f'Player {player}, choose a spot on the board: ')
     while True:
-        if player_input not in range(1, 9) and not player_input.isdigit():
-            player_input = input("Not a valid number, Please choose 1 - 9: ")
-        elif board[int(player_input) - 1] == "X" or board[int(player_input) - 1] == "O":
-            player_input = input("Spot occupied, choose an empty spot on the board: ")
-        else:
-            if player == 1:
-                board[int(player_input) - 1] = "X"
+        player_input = input(f'Player {player}, choose a spot on the board: ')
+        try:
+            val = int(player_input)
+            if (val in range(1, 10) and player_input.isdigit())\
+                    and not (board[int(player_input) - 1] == "X" or board[int(player_input) - 1] == "O"):
+                if player == 1:
+                    board[int(player_input) - 1] = "X"
+                else:
+                    board[int(player_input) - 1] = "O"
+                break
             else:
-                board[int(player_input) - 1] = "O"
-            break
+                print("Please choose 1-9 on an empty spot")
+        except ValueError:
+            print("Not a valid number")
+
     display_board()
 
 
